@@ -1,4 +1,5 @@
 var inquirer = require('inquirer');
+var clear = require('clear');
 
 // generate board
 function TicTacToe () {
@@ -67,11 +68,11 @@ var questions = [
 
 // initializes game
 function playGame(board) {
+  clear();
   var game = board || new TicTacToe();
   console.log(game.board);
   inquirer.prompt(questions).then(function (answers) {
     game.place(answers.Xposition, answers.Yposition, answers.player);
-    console.log('check', game.check());
     if (game.check() === null) {
       playGame(game);
     } else if (game.check() === 'X') {
