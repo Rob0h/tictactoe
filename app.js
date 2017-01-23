@@ -13,12 +13,22 @@ TicTacToe.prototype.place = function(positionX, positionY, player) {
 // checks board for winner
 TicTacToe.prototype.check =  function() {
   for (var i = 0; i < this.board.length; i++) {
+    var Ocount = 0;
+    var Xcount = 0;
     for (var j = 0; j < this.board[i].length; j++) {
-      if (this.board[i][j]) {
-
+      if (this.board[i][j] === 'X') {
+        Xcount++;
+      } else if (this.board[i][j] === 'O') {
+        Ocount++;
       }
     }
+    if (Ocount === 3) {
+      return 'O';
+    } else if (Xcount === 3) {
+      return 'X';
+    }
   }
+  return null;
 }
 
 // questions for player input
@@ -56,16 +66,20 @@ var questions = [
 ];
 
 // initializes game
-function playGame() {
-  var game = new TicTacToe();
+function playGame(board) {
+  var game = board || new TicTacToe();
   console.log(game.board);
-  while(!game.check) {
-    inquirer.prompt(questions).then(function (answers) {
-      console.log(answers);
-      game.place(answers.Xposition, answers.Yposition, answers.player);
-      console.log(game);
-    });
-  }
+  inquirer.prompt(questions).then(function (answers) {
+    game.place(answers.Xposition, answers.Yposition, answers.player);
+    console.log('check', game.check());
+    if (game.check() === null) {
+      playGame(game);
+    } else if (game.check() === 'X') {
+      console.log('Congratulations, X wins!');
+    } else if (game.check() === 'O') {
+      console.log('Congratulations, O wins!');
+    }
+  });
 }
 
 playGame();
