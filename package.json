@@ -2,7 +2,7 @@
   "name": "tictactoe",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -16,4 +16,8 @@
     "url": "https://github.com/Rob0h/tictactoe/issues"
   },
   "homepage": "https://github.com/Rob0h/tictactoe#readme",
+  "dependencies": {
+    "inquirer": "^3.0.0",
+    "pinkie-promise": "^2.0.1"
+  }
 }
